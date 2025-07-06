@@ -1,1 +1,124 @@
+Research: Define Objectives:
 
+Our goal is to develop a Natural Language Processing system that takes in unconsolidated patient data with a lack of structure and converts this into medically standardized descriptions for medical professionals to comprehend and assess symptoms with greater efficiency. Our objectives consist of:
+
+Task: Text Summarization → Symptom Summarization
+
+Objective: Convert free-text, patient messages into brief summaries using standardized medical terminology through natural language processing.
+
+Task Type: Entity Recognition / Span Classification → (NER)Negation Detection
+
+Objective: Extract key medical terminology and illness indicators such as symptoms, body parts, and condition-specific phrases from raw patient input.
+
+Task Type: Sequence Classification / Pattern Recognition → Medical Named Entity Recognition
+
+Objective: Identify when symptoms are negated to avoid incorrect diagnosis suggestions.
+
+Task Type: Multi-class Classification → Symptom-to-Diagnosis Classification
+
+Objective: Predict a preliminary list of potential diagnoses or categorize the case into a relevant department of care based on the summarized symptoms.
+
+Task Type: Terminology Output → Medical Context Mapping
+
+Objective: Map extracted symptom descriptions to standardized codes and medical phrases for consistency and interoperability.
+
+These objectives reflect the mission of improving workflow efficiency for medical professionals while simultaneously structuring patient input for reliable diagnostic support.
+
+Literature Review:
+
+To identify the most suitable NLP methods for symptom notes condensing and diagnosis support, we reviewed recent research papers, model benchmarks, and applied best practices across the following key areas:
+
+Text Summarization Relevant Methods:
+BART (Lewis et al., 2020): A denoising autoencoder that has achieved strong results on summarization tasks like CNN/DailyMail.
+
+T5 (Raffel et al., 2020): A flexible text-to-text transformer that performs summarization, translation, and classification by reframing tasks as text generation.
+
+PEGASUS (Zhang et al., 2020): Designed specifically for abstractive summarization, making it well-suited to clinical notes or patient symptom narratives.
+
+Medical-Specific Work:
+
+ClinicalBERT + BART hybrids have been explored for generating discharge summaries from clinical notes.
+
+MedSum and BioBART: Pretrained versions of summarization models on PubMed and clinical note corpora.
+
+Named Recognition (NER) for Medical Terms Relevant Methods:
+BioBERT (Lee et al., 2020): Pretrained on large biomedical corpora (PubMed + PMC), excellent for medical NER and relation extraction.
+
+ClinicalBERT (Alsentzer et al., 2019): Fine-tuned on MIMIC-III and clinical notes, better for informal or patient-language variations.
+
+ScispaCy: Lightweight spaCy-based models trained for biomedical and clinical entity detection, often used in pipeline integration.
+
+Clinical Use Cases: Extraction of entities such as symptoms, diseases, drug mentions, and body locations from patient-reported inputs.
+
+Negation Detection
+Key Approaches:
+
+NegEx (Chapman et al., 2001): A rule-based system used for detecting negated terms in clinical text.
+
+ConText: An extension of NegEx that adds temporality and experiencer detection.
+
+BiLSTM + CRF or Transformer-based NER models with negation-specific tagging schemes.
+
+Symptom-to-Diagnosis Prediction Popular Models:
+Traditional ML: Logistic Regression, Random Forest (baseline approaches for multiclass prediction).
+
+Deep Learning: CNNs for symptom text classification.
+
+Transformer Classifiers: Fine-tuned BioBERT or RoBERTa models for direct disease classification.
+
+Long-shot Approaches:
+
+Useful due to limited clinical datasets. Prompt-based learning using T5 or GPT-3/4 to classify unseen symptom patterns.
+
+Terminology Standardization
+QuickUMLS, MetaMap, cTAKES: Tools that match extracted phrases to UMLS or SNOMED CT.
+
+BioSyn (Sung et al., 2020): A biomedical model that maps terms to standardized vocabularies using contrastive learning.
+
+Benchmarking:
+
+To choose the most fitting NLP techniques for this project, we evaluated models based on accuracy, efficiency, and domain relevance. Our goals include summarizing symptoms, extracting medical terms, detecting negation, predicting diagnoses, and mapping terminology to medical vocabularies to generate an output that reads.
+
+For symptom summarization, models like T5 and BART offer strong general-purpose performance and can be fine-tuned for medical text. PEGASUS is also effective but more resource-intensive. A hybrid approach using ClinicalBERT for encoding and BART for generation shows promise in clinical settings.
+
+For NER, BioBERT is highly accurate due to its biomedical pretraining, while ScispaCy is faster and lightweight, suitable for simpler pipelines. cTAKES provides comprehensive rule-based extraction but is more complex to deploy.
+
+Negation detection is critical for accurate symptom interpretation. NegEx offers simple, rule-based detection and is easy to integrate. For more nuanced language, ConText or neural sequence models provide improved accuracy at higher complexity.
+
+For symptom-to-diagnosis classification, traditional methods like logistic regression and random forest serve as baselines, while fine-tuned BioBERT outperforms them in multiclass tasks. Prompt-based models (such as GPT) offer flexibility for low-data scenarios.
+
+For terminology mapping, tools like QuickUMLS and MetaMap are accessible, while BioSyn offers state-of-the-art accuracy via contrastive learning, though it requires more setup.
+
+In summary, our top choices are:
+
+T5/ClinicalBERT+BART for summarization
+
+BioBERT for NER and classification
+
+NegEx for fast negation detection
+
+BioSyn for medical vocabulary alignment
+
+Preliminary Experiments:
+
+Prior to large-scale development, we will run small-scale experiments to validate model performance. For condensing information into readable text, we will fine-tune T5 and BART on our 1,200-entry dataset, utilizing techniques such as data augmentation and evaluating with ROUGE alongside manual inspection.
+
+For NER and classification, we will fine-tune BioBERT on a manually labeled subset to ensure accuracy. NER will be evaluated using F1 scores, while classification will use accuracy and confusion matrices to measure how well symptom descriptions map to 24 disease categories.
+
+We will test NegEx for negation detection alongside neural alternatives. We then compare QuickUMLS and BioSyn on a sample of extracted terms to determine accuracy and integration feasibility.
+
+These experiments will guide final model selection.
+
+Depending on which objective we want to focus on, here are some framework options we can consider
+
+Symptom summarization:
+
+Medical Named Entity Recognition (NER): BioBERT/NER, model options en_core_sci_md
+
+import spacy
+
+import scispacy
+
+nlp = spacy.load('en_core_sci_md')
+
+Symptom to Diagnosis Classification: regression/random forests via sklearn
