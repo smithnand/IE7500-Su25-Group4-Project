@@ -19,7 +19,7 @@ Label: Name of the disease
 Text: Symptom description
 More references are CDC and WHO medical reports for uniformity in terms.
 
-### Methodology Results:
+### Methodology and Results:
 This project developed an NLP-based system for summarizing patient symptom descriptions and suggesting diagnoses. BioBERT and KNN showed strong classification capabilities, while BERT-based NER excelled at entity extraction.
 
 
