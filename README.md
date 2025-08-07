@@ -1,4 +1,4 @@
-AI for Symptom and Diagnosis Summary
+AI for Symptom and Diagnosis Summary 
 IE7500: Engineering Natural Language Processing Applied
 Group 4
 ---
