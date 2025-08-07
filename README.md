@@ -1,8 +1,8 @@
-AI for Symptom and Diagnosis Summary 
-
+# AI for Symptom and Diagnosis Summary 
+---
 IE7500: Engineering Natural Language Processing Applied
 Group 4
----
+----
 
 ### Project Overview
 The project develops a Natural Language Processing (NLP) system to analyze unstructured patient symptom stories and generate concise summaries in standardized medical terminology. The system benefits healthcare providers by suggesting diagnoses and categorizing cases by urgency level and department, thereby improving efficiency and clinical workflow.
