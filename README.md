@@ -19,17 +19,10 @@ Label: Name of the disease
 Text: Symptom description
 More references are CDC and WHO medical reports for uniformity in terms.
 
-### Major Goals
-Summarize unstructured medical text into structured format
-Detect symptoms and identify negated words
-Provide appropriate diagnoses or outcomes
-Support clinicians with a standardized, efficient triage tool
+### Methodology Results:
+This project developed an NLP-based system for summarizing patient symptom descriptions and suggesting diagnoses. BioBERT and KNN showed strong classification capabilities, while BERT-based NER excelled at entity extraction.
 
-### Anticipated Outcomes
-Key information extraction from medical text
-Disease classification using NLP techniques
-Medical term and negation identification
-Creation of an interpretable and scalable diagnosis aid system
+
 
 License
 This project is licensed under the MIT License.
